@@ -49,7 +49,7 @@ import YShelf from '/components/shelf'
 import product from '/components/product'
 import mallGoods from '/components/mallGoods'
 export default {
-  data () {
+  data() {
     return {
       banner: {},
       bgOpt: {
@@ -64,17 +64,17 @@ export default {
     }
   },
   methods: {
-    bgOver (e) {
+    bgOver(e) {
       this.bgOpt.px = e.offsetLeft
       this.bgOpt.py = e.offsetTop
       this.bgOpt.w = e.offsetWidth
       this.bgOpt.h = e.offsetHeight
     },
-    bgMove (dom, eve) {
-      let bgOpt = this.bgOpt
+    bgMove(dom, eve) {
+      const bgOpt = this.bgOpt
       let X, Y
-      let mouseX = eve.pageX - bgOpt.px
-      let mouseY = eve.pageY - bgOpt.py
+      const mouseX = eve.pageX - bgOpt.px
+      const mouseY = eve.pageY - bgOpt.py
       if (mouseX > bgOpt.w / 2) {
         X = mouseX - bgOpt.w / 2
       } else {
@@ -89,14 +89,14 @@ export default {
         50}deg)`
       dom.style.transform = `rotateY(${X / 50}deg) rotateX(${Y / 50}deg)`
     },
-    bgOut (dom) {
+    bgOut(dom) {
       dom.style['-webkit-transform'] = 'rotateY(0deg) rotateX(0deg)'
       dom.style.transform = 'rotateY(0deg) rotateX(0deg)'
     }
   },
-  mounted () {
+  mounted() {
     productHome().then(res => {
-      let data = res.result
+      const data = res.result
       this.floors = data.home_floors
       this.hot = data.home_hot
       this.loading = false
