@@ -20,8 +20,9 @@
                 @select="handleSelect"
                 :on-icon-click="handleIconClick">
               </el-autocomplete>
-              <router-link to="/goods"><a @click="changePage(2)">全部商品</a></router-link>
-              <router-link to="/thanks"><a @click="changePage(3)">捐赠</a></router-link>
+              <!-- <router-link to="/goods"><a @click="changePage(2)">全部商品</a></router-link>
+              <router-link to="/thanks"><a @click="changePage(3)">捐赠</a></router-link> -->
+              <router-link to="/"><a @click="changePage(2)">全部商品</a></router-link>
               <!-- <router-link to="/">Smartisan M1 / M1L</router-link>
               <router-link to="/">Smartisan OS</router-link>
               <router-link to="/">欢喜云</router-link>
@@ -30,7 +31,8 @@
             </div>
             <div class="nav-aside" ref="aside" :class="{fixed:st}">
               <div class="user pr">
-                <router-link to="/user">个人中心</router-link>
+                <router-link to="/">个人中心</router-link>
+                <!-- <router-link to="/user">个人中心</router-link> -->
                 <!--用户信息显示-->
                 <div class="nav-user-wrapper pa" v-if="login">
                   <div class="nav-user-list">
@@ -44,19 +46,24 @@
                         <p class="name">{{userInfo.info.username}}</p>
                       </li>
                       <li>
-                        <router-link to="/user/orderList">我的订单</router-link>
+                        <router-link to="/">我的订单</router-link>
+                        <!-- <router-link to="/user/orderList">我的订单</router-link> -->
                       </li>
                       <li>
-                        <router-link to="/user/information">账号资料</router-link>
+                        <router-link to="/">账号资料</router-link>
+                        <!-- <router-link to="/user/information">账号资料</router-link> -->
                       </li>
                       <li>
-                        <router-link to="/user/addressList">收货地址</router-link>
+                        <router-link to="/">收货地址</router-link>
+                        <!-- <router-link to="/user/addressList">收货地址</router-link> -->
                       </li>
                       <li>
-                        <router-link to="/user/support">售后服务</router-link>
+                        <router-link to="/">售后服务</router-link>
+                        <!-- <router-link to="/user/support">售后服务</router-link> -->
                       </li>
                       <li>
-                        <router-link to="/user/coupon">我的优惠</router-link>
+                        <router-link to="/">我的优惠</router-link>
+                        <!-- <router-link to="/user/coupon">我的优惠</router-link> -->
                       </li>
                       <li>
                         <a href="javascript:;" @click="_loginOut">退出</a>
@@ -67,7 +74,8 @@
               </div>
               <div class="shop pr" @mouseover="cartShowState(true)" @mouseout="cartShowState(false)"
                    ref="positionMsg">
-                <router-link to="/cart"></router-link>
+                <router-link to="/"></router-link>
+                <!-- <router-link to="/cart"></router-link> -->
                 <span class="cart-num">
                   <i class="num" :class="{no:totalNum <= 0,move_in_cart:receiveInCart}">{{totalNum}}</i></span>
                 <!--购物车显示块-->
@@ -80,7 +88,8 @@
                           <li class="clearfix" v-for="(item,i) in cartList" :key="i">
                             <div class="cart-item">
                               <div class="cart-item-inner">
-                                <router-link :to="'goodsDetails?productId='+item.productId">
+                                <router-link to="/">
+                                <!-- <router-link :to="'goodsDetails?productId='+item.productId"> -->
                                   <div class="item-thumb">
                                     <img :src="item.productImg">
                                   </div>
@@ -132,17 +141,19 @@
                   <router-link to="/"><a @click="changePage(1)" :class="{active:choosePage===1}">首页</a></router-link>
                 </li>
                 <li>
-                  <router-link to="/goods"><a @click="changePage(2)" :class="{active:choosePage===2}">全部商品</a></router-link>
+                  <router-link to="/"><a @click="changePage(2)" :class="{active:choosePage===2}">全部商品</a></router-link>
+                  <!-- <router-link to="/goods"><a @click="changePage(2)" :class="{active:choosePage===2}">全部商品</a></router-link> -->
                 </li>
                 <li>
-                  <router-link to="/thanks"><a @click="changePage(3)" :class="{active:choosePage===3}">捐赠名单</a></router-link>
+
+                  <!-- <router-link to="/thanks"><a @click="changePage(3)" :class="{active:choosePage===3}">捐赠名单</a></router-link> -->
                 </li>
-                <li>
+                <!-- <li>
                   <a href="http://xmadmin.exrick.cn" target="_blank">后台管理系统</a>
                 </li>
                 <li>
                   <a href="https://github.com/Exrick/xmall" target="_blank">Github</a>
-                </li>
+                </li> -->
               </ul>
               <div></div>
             </div>
@@ -202,19 +213,19 @@
       ...mapMutations(['ADD_CART', 'INIT_BUYCART', 'ADD_ANIMATION', 'SHOW_CART', 'REDUCE_CART', 'RECORD_USERINFO', 'EDIT_CART']),
       handleIconClick (ev) {
         if (this.$route.path === '/search') {
-          this.$router.push({
-            path: '/refreshsearch',
-            query: {
-              key: this.input
-            }
-          })
+          // this.$router.push({
+          //   path: '/refreshsearch',
+          //   query: {
+          //     key: this.input
+          //   }
+          // })
         } else {
-          this.$router.push({
-            path: '/search',
-            query: {
-              key: this.input
-            }
-          })
+          // this.$router.push({
+          //   path: '/search',
+          //   query: {
+          //     key: this.input
+          //   }
+          // })
         }
       },
       // 导航栏文字样式改变
@@ -288,17 +299,17 @@
       },
       // 控制顶部
       navFixed () {
-        if (this.$route.path === '/goods' || this.$route.path === '/home' || this.$route.path === '/goodsDetails' || this.$route.path === '/thanks') {
-          var st = document.body.scrollTop
-          st >= 100 ? this.st = true : this.st = false
-          // 计算小圆当前位置
-          let num = document.querySelector('.num')
-          this.positionL = num.getBoundingClientRect().left
-          this.positionT = num.getBoundingClientRect().top
-          this.ADD_ANIMATION({cartPositionL: this.positionL, cartPositionT: this.positionT})
-        } else {
-          return
-        }
+        // if (this.$route.path === '/goods' || this.$route.path === '/home' || this.$route.path === '/goodsDetails' || this.$route.path === '/thanks') {
+        //   var st = document.body.scrollTop
+        //   st >= 100 ? this.st = true : this.st = false
+        //   // 计算小圆当前位置
+        //   let num = document.querySelector('.num')
+        //   this.positionL = num.getBoundingClientRect().left
+        //   this.positionT = num.getBoundingClientRect().top
+        //   this.ADD_ANIMATION({cartPositionL: this.positionL, cartPositionT: this.positionT})
+        // } else {
+        //   return
+        // }
       },
       // 退出登陆
       _loginOut () {
@@ -314,15 +325,15 @@
       },
       // 通过路由改变导航文字样式
       getPage () {
-        if (this.$route.path === '/' || this.$route.path === '/home') {
-          this.changePage(1)
-        } else if (this.$route.path === '/goods') {
-          this.changePage(2)
-        } else if (this.$route.path === '/thanks') {
-          this.changePage(3)
-        } else {
-          this.changePage(4)
-        }
+        // if (this.$route.path === '/' || this.$route.path === '/home') {
+        //   this.changePage(1)
+        // } else if (this.$route.path === '/goods') {
+        //   this.changePage(2)
+        // } else if (this.$route.path === '/thanks') {
+        //   this.changePage(3)
+        // } else {
+        //   this.changePage(4)
+        // }
       }
     },
     mounted () {
