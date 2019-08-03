@@ -2,7 +2,8 @@
   <div class="good-item">
     <div style>
       <div class="good-img">
-        <router-link :to="'goodsDetails?productId='+msg.productId">
+        <router-link to="/">
+          <!-- <router-link :to="'goodsDetails?productId='+msg.productId"> -->
           <img v-lazy="msg.productImageBig" :alt="msg.productName" />
         </router-link>
       </div>
@@ -10,15 +11,17 @@
       <h3 class="sub-title ellipsis">{{msg.sub_title}}</h3>
       <div class="good-price pr">
         <div class="ds pa">
-          <router-link :to="'goodsDetails?productId='+msg.productId">
+          <router-link to="/">
+            <!-- <router-link :to="'goodsDetails?productId='+msg.productId"> -->
             <y-button text="查看详情" style="margin: 0 5px"></y-button>
           </router-link>
-          <y-button
+          <!-- <y-button
             text="加入购物车"
             style="margin: 0 5px"
             @btnClick="addCart(msg.productId,msg.salePrice,msg.productName,msg.productImageBig)"
             classStyle="main-btn"
-          ></y-button>
+          ></y-button>-->
+          <y-button text="加入购物车" style="margin: 0 5px" classStyle="main-btn"></y-button>
         </div>
         <p>
           <span style="font-size: 16px">￥</span>
@@ -93,7 +96,9 @@ export default {
   computed: {
     ...mapState(['login', 'showMoveImg', 'showCart'])
   },
-  mounted() {},
+  mounted() {
+    console.log('this.msg', this.msg)
+  },
   components: {
     YButton
   }

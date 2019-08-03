@@ -4,7 +4,7 @@
       <a>
         <div
           class="bg"
-          :class="bg?'123':'1'"
+          :class="bg?'商品类别':'1'"
           ref="bg"
           @mouseover="bgOver($refs.bg)"
           @mousemove="bgMove($refs.bg,$event)"
@@ -20,7 +20,8 @@
       </a>
     </div>
 
-    <div v-loading="loading" element-loading-text="加载中...">
+    <div>
+      <!-- <div v-loading="loading" element-loading-text="加载中..."> -->
       <section class="w mt30 clearfix">
         <y-shelf title="热门商品">
           <div slot="content" class="hot">
@@ -44,7 +45,7 @@
   </div>
 </template>
 <script>
-import { productHome } from '/api/index.js'
+// import { productHome } from '/api/index.js'
 import YShelf from '/components/shelf'
 import product from '/components/product'
 import mallGoods from '/components/mallGoods'
@@ -95,12 +96,98 @@ export default {
     }
   },
   mounted() {
-    productHome().then(res => {
-      const data = res.result
-      this.floors = data.home_floors
-      this.hot = data.home_hot
-      this.loading = false
-    })
+    const res = {
+      success: true,
+      message: 'success',
+      code: 200,
+      timestamp: 1564826825414,
+      result: {
+        home_floors: [
+          {
+            title: '商品类别',
+            image: {
+              image: 'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png',
+              link: 'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+            },
+            tabs: [
+              {
+                productId: 1,
+                productName: '商品名称',
+                sub_title: '二级标题',
+                salePrice: '56',
+                productImageBig:
+                  'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+              },
+              {
+                productId: 1,
+                productName: '商品名称',
+                sub_title: '二级标题',
+                salePrice: '56',
+                productImageBig:
+                  'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+              }
+            ]
+          },
+          {
+            title: '商品类别',
+            image: {
+              image: 'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png',
+              link: 'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+            },
+            tabs: [
+              {
+                productId: 1,
+                productName: '商品名称',
+                sub_title: '二级标题',
+                salePrice: '56',
+                productImageBig:
+                  'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+              },
+              {
+                productId: 1,
+                productName: '商品名称',
+                sub_title: '二级标题',
+                salePrice: '56',
+                productImageBig:
+                  'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+              }
+            ]
+          }
+        ],
+        home_hot: [
+          {
+            productId: 1,
+            productName: '商品名称',
+            sub_title: '二级标题',
+            salePrice: '56',
+            productImageBig:
+              'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+          },
+          {
+            productId: 1,
+            productName: '商品名称',
+            sub_title: '二级标题',
+            salePrice: '56',
+            productImageBig:
+              'http://47.92.240.201/media/goods/images/LV%E7%86%8A.png'
+          }
+        ]
+      }
+    }
+
+    const data = res.result
+    console.log(data, 'data')
+    this.floors = data.home_floors
+    this.hot = data.home_hot
+    this.loading = false
+    console.log(this.floors)
+    console.log(this.hot)
+    // productHome().then(res => {
+    //   const data = res.result
+    //   this.floors = data.home_floors
+    //   this.hot = data.home_hot
+    //   this.loading = false
+    // })
   },
   components: {
     YShelf,
