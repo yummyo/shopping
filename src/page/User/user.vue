@@ -8,8 +8,13 @@
         <div class="account-sidebar">
           <div class="avatar gray-box">
             <div>
+<<<<<<< HEAD
               <img :src="userInfo.info.file" />
               <h5>{{userInfo.info.username}}</h5>
+=======
+              <img :src="userInfo ? userInfo.info.file : ''" />
+              <h5>{{userInfo ? userInfo.info.username : ''}}</h5>
+>>>>>>> ce35352e0251412cf9498ebfe1205eeaef71c804
             </div>
             <div class="box-inner">
               <ul class="account-nav">
