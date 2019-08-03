@@ -8,23 +8,22 @@
             <ul class="common-form">
               <li class="username border-1p">
                 <div style="margin-top: 40px;" class="input">
-                  <input type="text"
-                         v-model="registered.userName" placeholder="账号"
-                         @keyup="registered.userName=registered.userName.replace(/[^\w\.\/]/ig,'')">
+                  <input
+                    type="text"
+                    v-model="registered.userName"
+                    placeholder="账号"
+                    @keyup="registered.userName=registered.userName.replace(/[^\w\.\/]/ig,'')"
+                  />
                 </div>
               </li>
               <li>
                 <div class="input">
-                  <input type="password"
-                         v-model="registered.userPwd"
-                         placeholder="密码">
+                  <input type="password" v-model="registered.userPwd" placeholder="密码" />
                 </div>
               </li>
               <li>
                 <div class="input">
-                  <input type="password"
-                         v-model="registered.userPwd2"
-                         placeholder="重复密码">
+                  <input type="password" v-model="registered.userPwd2" placeholder="重复密码" />
                 </div>
               </li>
               <li>
@@ -34,8 +33,8 @@
               </li>
             </ul>
             <el-checkbox class="agree" v-model="agreement">
-              我已阅读并同意遵守 
-              <a @click="open('法律声明','此仅为个人练习开源模仿项目，仅供学习参考，承担不起任何法律问题')">法律声明</a> 和 
+              我已阅读并同意遵守
+              <a @click="open('法律声明','此仅为个人练习开源模仿项目，仅供学习参考，承担不起任何法律问题')">法律声明</a> 和
               <a @click="open('隐私条款','本网站将不会严格遵守有关法律法规和本隐私政策所载明的内容收集、使用您的信息')">隐私条款</a>
             </el-checkbox>
             <div style="margin-bottom: 30px;">
@@ -44,17 +43,16 @@
                 :text="registxt"
                 style="margin: 0;width: 100%;height: 48px;font-size: 18px;line-height: 48px"
                 @btnClick="regist"
-              >
-              </y-button>
+              ></y-button>
             </div>
             <div class="border" style="margin-bottom: 10px;"></div>
             <ul class="common-form pr">
               <!-- <li class="pa" style="left: 0;top: 0;margin: 0;color: #d44d44">{{registered.errMsg}}</li> -->
-              <li style="text-align: center;line-height: 48px;margin-bottom: 0;font-size: 12px;color: #999;">
+              <li
+                style="text-align: center;line-height: 48px;margin-bottom: 0;font-size: 12px;color: #999;"
+              >
                 <span>如果您已拥有 XMall 账号，则可在此</span>
-                <a href="javascript:;"
-                   style="margin: 0 5px"
-                   @click="toLogin">登陆</a>
+                <a href="javascript:;" style="margin: 0 5px" @click="toLogin">登陆</a>
               </li>
             </ul>
           </div>
@@ -71,7 +69,7 @@ import { register, geetest } from '/api/index.js'
 require('../../../static/geetest/gt.js')
 var captcha
 export default {
-  data () {
+  data() {
     return {
       cart: [],
       loginPage: true,
@@ -91,38 +89,38 @@ export default {
     }
   },
   computed: {
-    count () {
+    count() {
       return this.$store.state.login
     }
   },
   methods: {
-    open (t, m) {
+    open(t, m) {
       this.$notify.info({
         title: t,
         message: m
       })
     },
-    messageSuccess () {
+    messageSuccess() {
       this.$message({
         message: '恭喜您，注册成功！赶紧登录体验吧',
         type: 'success'
       })
     },
-    message (m) {
+    message(m) {
       this.$message.error({
         message: m
       })
     },
-    toLogin () {
+    toLogin() {
       this.$router.push({
         path: '/login'
       })
     },
-    regist () {
+    regist() {
       this.registxt = '注册中...'
-      let userName = this.registered.userName
-      let userPwd = this.registered.userPwd
-      let userPwd2 = this.registered.userPwd2
+      const userName = this.registered.userName
+      const userPwd = this.registered.userPwd
+      const userPwd2 = this.registered.userPwd2
       if (!userName || !userPwd || !userPwd2) {
         this.message('账号密码不能为空!')
         this.registxt = '注册'
@@ -149,39 +147,43 @@ export default {
         userPwd,
         challenge: result.geetest_challenge,
         validate: result.geetest_validate,
-        seccode: result.geetest_seccode }).then(res => {
-          if (res.success === true) {
-            this.messageSuccess()
-            this.toLogin()
-          } else {
-            this.message(res.message)
-            captcha.reset()
-            this.regist = '注册'
-            return false
-          }
-        })
+        seccode: result.geetest_seccode
+      }).then(res => {
+        if (res.success === true) {
+          this.messageSuccess()
+          this.toLogin()
+        } else {
+          this.message(res.message)
+          captcha.reset()
+          this.regist = '注册'
+          return false
+        }
+      })
     },
-    init_geetest () {
+    init_geetest() {
       geetest().then(res => {
-        window.initGeetest({
-          gt: res.gt,
-          challenge: res.challenge,
-          new_captcha: res.new_captcha,
-          offline: !res.success,
-          product: 'popup',
-          width: '100%'
-        }, function (captchaObj) {
-          captcha = captchaObj
-          captchaObj.appendTo('#captcha')
-          captchaObj.onReady(function () {
-            document.getElementById('wait').style.display = 'none'
-          })
-          this.regist()
-        })
+        window.initGeetest(
+          {
+            gt: res.gt,
+            challenge: res.challenge,
+            new_captcha: res.new_captcha,
+            offline: !res.success,
+            product: 'popup',
+            width: '100%'
+          },
+          function(captchaObj) {
+            captcha = captchaObj
+            captchaObj.appendTo('#captcha')
+            captchaObj.onReady(function() {
+              document.getElementById('wait').style.display = 'none'
+            })
+            this.regist()
+          }
+        )
       })
     }
   },
-  mounted () {
+  mounted() {
     this.init_geetest()
   },
   components: {

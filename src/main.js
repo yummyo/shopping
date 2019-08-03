@@ -34,7 +34,7 @@ Vue.config.productionTip = false
 //   '/cart',
 //   '/refreshsearch'
 // ] // 不需要登陆的页面
-router.beforeEach(function (to, from, next) {
+router.beforeEach(function(to, from, next) {
   next()
   // let params = {
   //   params: {

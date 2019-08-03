@@ -6,9 +6,9 @@
         <a href="javascript:;" @click="sortByPrice(1)" :class="{active:sortType===2}">价格从低到高</a>
         <a href="javascript:;" @click="sortByPrice(-1)" :class="{active:sortType===3}">价格从高到低</a>
         <div class="price-interval">
-          <input type="number" class="input" placeholder="价格" v-model="min">
-          <span style="margin: 0 5px"> - </span>
-          <input type="number" placeholder="价格" v-model="max">
+          <input type="number" class="input" placeholder="价格" v-model="min" />
+          <span style="margin: 0 5px">-</span>
+          <input type="number" placeholder="价格" v-model="max" />
           <y-button text="确定" classStyle="main-btn" @btnClick="reset" style="margin-left: 10px;"></y-button>
         </div>
       </div>
@@ -27,13 +27,13 @@
         :page-sizes="[8, 20, 40, 80]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
-      </el-pagination>
+        :total="total"
+      ></el-pagination>
     </div>
     <div v-loading="loading" element-loading-text="加载中..." class="no-info" v-else-if="goods == ''">
       <div class="no-data">
-        <img src="/static/images/no-search.png">
-        <br> 抱歉！没有为您找到相关的商品
+        <img src="/static/images/no-search.png" />
+        <br />抱歉！没有为您找到相关的商品
       </div>
       <section class="section">
         <y-shelf title="为您推荐">
@@ -45,8 +45,8 @@
     </div>
     <div v-else>
       <div class="no-data">
-        <img src="/static/images/error.png">
-        <br> 抱歉！出错了...
+        <img src="/static/images/error.png" />
+        <br />抱歉！出错了...
       </div>
       <section class="section">
         <y-shelf title="为您推荐">
@@ -59,179 +59,175 @@
   </div>
 </template>
 <script>
-  import {getAllGoods} from '/api/goods.js'
-  import {productHome} from '/api/index.js'
-  import mallGoods from '/components/mallGoods'
-  import YButton from '/components/YButton'
-  import YShelf from '/components/shelf'
-  export default {
-    data () {
-      return {
-        goods: [0],
-        min: '',
-        max: '',
-        loading: true,
-        timer: null,
-        sortType: 1,
-        windowHeight: null,
-        windowWidth: null,
-        recommend: [],
-        sort: '',
-        currentPage: 1,
-        total: 0,
-        pageSize: 20
-      }
-    },
-    methods: {
-      handleSizeChange (val) {
-        this.pageSize = val
-        this._getAllGoods()
-        this.loading = true
-      },
-      handleCurrentChange (val) {
-        this.currentPage = val
-        this._getAllGoods()
-        this.loading = true
-      },
-      _getAllGoods () {
-        let params = {
-          params: {
-            page: this.currentPage,
-            size: this.pageSize,
-            sort: this.sort,
-            priceGt: this.min,
-            priceLte: this.max
-          }
-        }
-        getAllGoods(params).then(res => {
-          if (res.success === true) {
-            this.total = res.result.total
-            this.goods = res.result.data
-          }
-          this.loading = false
-        })
-      },
-      // 默认排序
-      reset () {
-        this.sortType = 1
-        this.sort = ''
-        this.currentPage = 1
-        this.loading = true
-        this._getAllGoods()
-      },
-      // 价格排序
-      sortByPrice (v) {
-        v === 1 ? this.sortType = 2 : this.sortType = 3
-        this.sort = v
-        this.currentPage = 1
-        this.loading = true
-        this._getAllGoods()
-      }
-    },
-    created () {
-    },
-    mounted () {
-      this.windowHeight = window.innerHeight
-      this.windowWidth = window.innerWidth
+import { getAllGoods } from '/api/goods.js'
+import { productHome } from '/api/index.js'
+import mallGoods from '/components/mallGoods'
+import YButton from '/components/YButton'
+import YShelf from '/components/shelf'
+export default {
+  data() {
+    return {
+      goods: [0],
+      min: '',
+      max: '',
+      loading: true,
+      timer: null,
+      sortType: 1,
+      windowHeight: null,
+      windowWidth: null,
+      recommend: [],
+      sort: '',
+      currentPage: 1,
+      total: 0,
+      pageSize: 20
+    }
+  },
+  methods: {
+    handleSizeChange(val) {
+      this.pageSize = val
       this._getAllGoods()
-      productHome().then(res => {
-        let data = res.result
-        this.recommend = data.home_hot
+      this.loading = true
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      this._getAllGoods()
+      this.loading = true
+    },
+    _getAllGoods() {
+      const params = {
+        params: {
+          page: this.currentPage,
+          size: this.pageSize,
+          sort: this.sort,
+          priceGt: this.min,
+          priceLte: this.max
+        }
+      }
+      getAllGoods(params).then(res => {
+        if (res.success === true) {
+          this.total = res.result.total
+          this.goods = res.result.data
+        }
+        this.loading = false
       })
     },
-    components: {
-      mallGoods,
-      YButton,
-      YShelf
+    // 默认排序
+    reset() {
+      this.sortType = 1
+      this.sort = ''
+      this.currentPage = 1
+      this.loading = true
+      this._getAllGoods()
+    },
+    // 价格排序
+    sortByPrice(v) {
+      v === 1 ? (this.sortType = 2) : (this.sortType = 3)
+      this.sort = v
+      this.currentPage = 1
+      this.loading = true
+      this._getAllGoods()
     }
+  },
+  created() {},
+  mounted() {
+    this.windowHeight = window.innerHeight
+    this.windowWidth = window.innerWidth
+    this._getAllGoods()
+    productHome().then(res => {
+      const data = res.result
+      this.recommend = data.home_hot
+    })
+  },
+  components: {
+    mallGoods,
+    YButton,
+    YShelf
   }
+}
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "../../assets/style/mixin";
-  @import "../../assets/style/theme";
+@import '../../assets/style/mixin';
+@import '../../assets/style/theme';
 
-  .nav {
-    height: 60px;
-    line-height: 60px;
-    > div {
-      display: flex;
-      align-items: center;
-      a {
-        padding: 0 15px;
-        height: 100%;
-        @extend %block-center;
-        font-size: 12px;
-        color: #999;
-        &.active {
-          color: #5683EA;
-        }
-        &:hover {
-          color: #5683EA;
-        }
-      }
-      input {
-        @include wh(80px, 30px);
-        border: 1px solid #ccc;
-      }
-      input + input {
-        margin-left: 10px;
-      }
-    }
-    .price-interval {
+.nav {
+  height: 60px;
+  line-height: 60px;
+  > div {
+    display: flex;
+    align-items: center;
+    a {
       padding: 0 15px;
+      height: 100%;
       @extend %block-center;
-      input[type=number] {
-        border: 1px solid #ccc;
-        text-align: center;
-        background: none;
-        border-radius: 5px;
+      font-size: 12px;
+      color: #999;
+      &.active {
+        color: #5683ea;
+      }
+      &:hover {
+        color: #5683ea;
       }
     }
-  }
-
-  .goods-box {
-    > div {
-      float: left;
-      border: 1px solid #efefef;
+    input {
+      @include wh(80px, 30px);
+      border: 1px solid #ccc;
+    }
+    input + input {
+      margin-left: 10px;
     }
   }
-
-  .no-info {
-    padding: 100px 0;
-    text-align: center;
-    font-size: 30px;
-    display: flex;
-    flex-direction: column;
-    .no-data{
-      align-self: center;
+  .price-interval {
+    padding: 0 15px;
+    @extend %block-center;
+    input[type='number'] {
+      border: 1px solid #ccc;
+      text-align: center;
+      background: none;
+      border-radius: 5px;
     }
   }
+}
 
-  .img-item{
-    display: flex;
-    flex-direction: column;
+.goods-box {
+  > div {
+    float: left;
+    border: 1px solid #efefef;
   }
+}
 
-  .el-pagination{
-    align-self: flex-end;
-    margin: 3vw 10vw 2vw;
-  }
-
-  .section {
-    padding-top: 8vw;
-    margin-bottom: -5vw;
-    width: 1218px;
+.no-info {
+  padding: 100px 0;
+  text-align: center;
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  .no-data {
     align-self: center;
   }
+}
 
-  .recommend {
-    display: flex;
-    > div {
-      flex: 1;
-      width: 25%;
-    }
+.img-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.el-pagination {
+  align-self: flex-end;
+  margin: 3vw 10vw 2vw;
+}
+
+.section {
+  padding-top: 8vw;
+  margin-bottom: -5vw;
+  width: 1218px;
+  align-self: center;
+}
+
+.recommend {
+  display: flex;
+  > div {
+    flex: 1;
+    width: 25%;
   }
-
-
-
+}
 </style>

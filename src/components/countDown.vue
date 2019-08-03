@@ -1,13 +1,11 @@
 <template>
   <span :endTime="endTime" :callback="callback" :endText="endText">
-    <slot>
-      {{content}}
-    </slot>
+    <slot>{{content}}</slot>
   </span>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       content: ''
     }
@@ -27,13 +25,13 @@ export default {
     }
   },
   methods: {
-    countdowm (timestamp) {
-      let self = this
-      let timer = setInterval(function () {
-        let nowTime = new Date()
-        let t = timestamp - nowTime.getTime()
+    countdowm(timestamp) {
+      const self = this
+      const timer = setInterval(function() {
+        const nowTime = new Date()
+        const t = timestamp - nowTime.getTime()
         if (t > 0) {
-          let day = Math.floor(t / 86400000)
+          const day = Math.floor(t / 86400000)
           let hour = Math.floor((t / 3600000) % 24)
           let min = Math.floor((t / 60000) % 60)
           let sec = Math.floor((t / 1000) % 60)
@@ -58,17 +56,16 @@ export default {
         }
       }, 1000)
     },
-    _callback () {
+    _callback() {
       if (this.callback && this.callback instanceof Function) {
         this.callback(...this)
       }
     }
   },
-  mounted () {
+  mounted() {
     this.countdowm(this.endTime)
   }
 }
 </script>
 <style lang='scss' rel='stylesheet/scss' scoped>
-  
 </style>

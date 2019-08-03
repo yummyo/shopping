@@ -9,12 +9,17 @@
           <ul class="common-form">
             <li class="username border-1p">
               <div class="input">
-                <input type="text" v-model="ruleForm.userName" placeholder="账号">
+                <input type="text" v-model="ruleForm.userName" placeholder="账号" />
               </div>
             </li>
             <li>
               <div class="input">
-                <input type="password" v-model="ruleForm.userPwd" @keyup.enter="login" placeholder="密码">
+                <input
+                  type="password"
+                  v-model="ruleForm.userPwd"
+                  @keyup.enter="login"
+                  placeholder="密码"
+                />
               </div>
             </li>
             <li>
@@ -26,26 +31,39 @@
               <el-checkbox class="auto-login" v-model="autoLogin">自动登录</el-checkbox>
               <!-- <span class="pa" style="top: 0;left: 0;color: #d44d44">{{ruleForm.errMsg}}</span> -->
               <a href="javascript:;" class="register" @click="toRegister">注册 XMall 账号</a>
-              <a style="padding: 1px 0 0 10px" @click="open('找回密码','请联系作者邮箱找回密码或使用测试账号登录：test | test')">忘记密码 ?</a>
+              <a
+                style="padding: 1px 0 0 10px"
+                @click="open('找回密码','请联系作者邮箱找回密码或使用测试账号登录：test | test')"
+              >忘记密码 ?</a>
             </li>
           </ul>
           <!--登陆-->
           <div style="margin-top: 25px">
-            <y-button :text="logintxt"
-                      :classStyle="ruleForm.userPwd&& ruleForm.userName&& logintxt === '登录'?'main-btn':'disabled-btn'"
-                      @btnClick="login"
-                      style="margin: 0;width: 100%;height: 48px;font-size: 18px;line-height: 48px"></y-button>
+            <y-button
+              :text="logintxt"
+              :classStyle="ruleForm.userPwd&& ruleForm.userName&& logintxt === '登录'?'main-btn':'disabled-btn'"
+              @btnClick="login"
+              style="margin: 0;width: 100%;height: 48px;font-size: 18px;line-height: 48px"
+            ></y-button>
           </div>
           <!--返回-->
           <div>
-            <y-button text="返回" @btnClick="login_back"
-              style="marginTop: 10px;marginBottom: 15px;width: 100%;height: 48px;font-size: 18px;line-height: 48px">
-            </y-button>
+            <y-button
+              text="返回"
+              @btnClick="login_back"
+              style="marginTop: 10px;marginBottom: 15px;width: 100%;height: 48px;font-size: 18px;line-height: 48px"
+            ></y-button>
           </div>
           <div class="border"></div>
           <div class="footer">
             <div class="other">其它账号登录：</div>
-            <a><img @click="open('待开发','此功能开发中...')" style="height: 15px; margin-top: 22px;" src="/static/images/other-login.png"></a>
+            <a>
+              <img
+                @click="open('待开发','此功能开发中...')"
+                style="height: 15px; margin-top: 22px;"
+                src="/static/images/other-login.png"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -62,7 +80,7 @@ import { setStore, getStore, removeStore } from '/utils/storage.js'
 require('../../../static/geetest/gt.js')
 var captcha
 export default {
-  data () {
+  data() {
     return {
       cart: [],
       loginPage: true,
@@ -82,41 +100,41 @@ export default {
     }
   },
   computed: {
-    count () {
+    count() {
       return this.$store.state.login
     }
   },
   methods: {
-    open (t, m) {
+    open(t, m) {
       this.$notify.info({
         title: t,
         message: m
       })
     },
-    messageSuccess () {
+    messageSuccess() {
       this.$message({
         message: '恭喜您，注册成功！赶紧登录体验吧',
         type: 'success'
       })
     },
-    message (m) {
+    message(m) {
       this.$message.error({
         message: m
       })
     },
-    toRegister () {
+    toRegister() {
       this.$router.push({
         path: '/register'
       })
     },
     // 登录返回按钮
-    login_back () {
+    login_back() {
       this.$router.go(-1)
     },
     // 登陆时将本地的添加到用户购物车
-    login_addCart () {
-      let cartArr = []
-      let locaCart = JSON.parse(getStore('buyCart'))
+    login_addCart() {
+      const cartArr = []
+      const locaCart = JSON.parse(getStore('buyCart'))
       if (locaCart && locaCart.length) {
         locaCart.forEach(item => {
           cartArr.push({
@@ -128,7 +146,7 @@ export default {
       }
       this.cart = cartArr
     },
-    login () {
+    login() {
       this.logintxt = '登录中...'
       if (!this.ruleForm.userName || !this.ruleForm.userPwd) {
         // this.ruleForm.errMsg = '账号或者密码不能为空!'
@@ -177,27 +195,30 @@ export default {
         }
       })
     },
-    init_geetest () {
+    init_geetest() {
       geetest().then(res => {
-        window.initGeetest({
-          gt: res.gt,
-          challenge: res.challenge,
-          new_captcha: res.new_captcha,
-          offline: !res.success,
-          product: 'popup',
-          width: '100%'
-        }, function (captchaObj) {
-          captcha = captchaObj
-          captchaObj.appendTo('#captcha')
-          captchaObj.onReady(function () {
-            document.getElementById('wait').style.display = 'none'
-          })
-          this.login()
-        })
+        window.initGeetest(
+          {
+            gt: res.gt,
+            challenge: res.challenge,
+            new_captcha: res.new_captcha,
+            offline: !res.success,
+            product: 'popup',
+            width: '100%'
+          },
+          function(captchaObj) {
+            captcha = captchaObj
+            captchaObj.appendTo('#captcha')
+            captchaObj.onReady(function() {
+              document.getElementById('wait').style.display = 'none'
+            })
+            this.login()
+          }
+        )
       })
     }
   },
-  mounted () {
+  mounted() {
     this.login_addCart()
     this.init_geetest()
     this.open('登录提示', '测试体验账号密码：test | test')

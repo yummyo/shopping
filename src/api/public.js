@@ -3,7 +3,7 @@ axios.defaults.timeout = 10000
 axios.defaults.headers.post['Content-Type'] =
   'application/x-www=form-urlencoded'
 export default {
-  fetchGet (url, params = {}) {
+  fetchGet(url, params = {}) {
     return new Promise((resolve, reject) => {
       axios
         .get(url, params)
@@ -15,7 +15,7 @@ export default {
         })
     })
   },
-  fetchQuickSearch (url) {
+  fetchQuickSearch(url) {
     return new Promise((resolve, reject) => {
       axios
         .get(url)
@@ -27,7 +27,7 @@ export default {
         })
     })
   },
-  fetchPost (url, params = {}) {
+  fetchPost(url, params = {}) {
     return new Promise((resolve, reject) => {
       axios
         .post(url, params)
