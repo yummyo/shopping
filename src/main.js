@@ -6,34 +6,9 @@ import VueLazyload from 'vue-lazyload'
 import infiniteScroll from 'vue-infinite-scroll'
 import VueCookie from 'vue-cookie'
 // import { userInfo } from './api'
-import {
-  Button,
-  Pagination,
-  Checkbox,
-  Icon,
-  Autocomplete,
-  Loading,
-  Message,
-  Notification,
-  Steps,
-  Step,
-  Table,
-  TableColumn
-} from 'element-ui'
-// import { getStore } from '/utils/storage'
-Vue.use(Button)
-Vue.use(Pagination)
-Vue.use(Checkbox)
-Vue.use(Icon)
-Vue.use(Autocomplete)
-Vue.use(Steps)
-Vue.use(Step)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Loading.directive)
-Vue.prototype.$loading = Loading.service
-Vue.prototype.$notify = Notification
-Vue.prototype.$message = Message
+import Element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
 Vue.use(infiniteScroll)
 Vue.use(VueCookie)
 Vue.use(VueLazyload, {
@@ -42,6 +17,11 @@ Vue.use(VueLazyload, {
   loading: '/static/images/load.gif'
   // attempt: 1
 })
+
+Vue.use(Element, {
+  size: 'medium' // set element-ui default size
+})
+
 Vue.config.productionTip = false
 // const whiteList = [
 //   '/home',
