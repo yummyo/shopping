@@ -171,7 +171,7 @@
   import { setStore, getStore, removeStore } from '/utils/storage'
   // import store from '../store/'
   export default{
-    data () {
+    data() {
       return {
         user: {},
         // 查询数据库的商品
@@ -193,7 +193,7 @@
         'cartList', 'login', 'receiveInCart', 'showCart', 'userInfo'
       ]),
       // 计算价格
-      totalPrice () {
+      totalPrice() {
         var totalPrice = 0
         this.cartList && this.cartList.forEach(item => {
           totalPrice += (item.productNum * item.salePrice)
@@ -201,7 +201,7 @@
         return totalPrice
       },
       // 计算数量
-      totalNum () {
+      totalNum() {
         var totalNum = 0
         this.cartList && this.cartList.forEach(item => {
           totalNum += (item.productNum)
@@ -211,7 +211,7 @@
     },
     methods: {
       ...mapMutations(['ADD_CART', 'INIT_BUYCART', 'ADD_ANIMATION', 'SHOW_CART', 'REDUCE_CART', 'RECORD_USERINFO', 'EDIT_CART']),
-      handleIconClick (ev) {
+      handleIconClick(ev) {
         if (this.$route.path === '/search') {
           // this.$router.push({
           //   path: '/refreshsearch',
@@ -229,11 +229,11 @@
         }
       },
       // 导航栏文字样式改变
-      changePage (v) {
+      changePage(v) {
         this.choosePage = v
       },
       // 搜索框提示
-      loadAll () {
+      loadAll() {
         getQuickSearch(this.input).then(res => {
           var array = []
           var maxSize = 5
@@ -252,7 +252,7 @@
           }
         })
       },
-      querySearchAsync (queryString, cb) {
+      querySearchAsync(queryString, cb) {
         if (this.input === undefined) {
           cb([])
           return
@@ -268,16 +268,16 @@
           }, 300)
         }
       },
-      handleSelect (item) {
+      handleSelect(item) {
         this.input = item.value
       },
       // 购物车显示
-      cartShowState (state) {
-        this.SHOW_CART({showCart: state})
+      cartShowState(state) {
+        this.SHOW_CART({ showCart: state })
       },
       // 登陆时获取一次购物车商品
-      _getCartList () {
-        getCartList({userId: getStore('userId')}).then(res => {
+      _getCartList() {
+        getCartList({ userId: getStore('userId') }).then(res => {
           if (res.success === true) {
             setStore('buyCart', res.result)
           }
@@ -285,20 +285,20 @@
         }).then(this.INIT_BUYCART)
       },
       // 删除商品
-      delGoods (productId) {
+      delGoods(productId) {
         if (this.login) { // 登陆了
-          cartDel({userId: getStore('userId'), productId}).then(res => {
-            this.EDIT_CART({productId})
+          cartDel({ userId: getStore('userId'), productId }).then(res => {
+            this.EDIT_CART({ productId })
           })
         } else {
-          this.EDIT_CART({productId})
+          this.EDIT_CART({ productId })
         }
       },
-      toCart () {
-        this.$router.push({path: '/cart'})
+      toCart() {
+        this.$router.push({ path: '/cart' })
       },
       // 控制顶部
-      navFixed () {
+      navFixed() {
         // if (this.$route.path === '/goods' || this.$route.path === '/home' || this.$route.path === '/goodsDetails' || this.$route.path === '/thanks') {
         //   var st = document.body.scrollTop
         //   st >= 100 ? this.st = true : this.st = false
@@ -312,8 +312,8 @@
         // }
       },
       // 退出登陆
-      _loginOut () {
-        let params = {
+      _loginOut() {
+        const params = {
           params: {
             token: this.token
           }
@@ -324,7 +324,7 @@
         })
       },
       // 通过路由改变导航文字样式
-      getPage () {
+      getPage() {
         // if (this.$route.path === '/' || this.$route.path === '/home') {
         //   this.changePage(1)
         // } else if (this.$route.path === '/goods') {
@@ -336,7 +336,7 @@
         // }
       }
     },
-    mounted () {
+    mounted() {
       this.token = getStore('token')
       if (this.login) {
         this._getCartList()
