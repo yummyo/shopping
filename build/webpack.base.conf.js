@@ -3,16 +3,16 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
   externals: {
-    'vue': 'Vue',
+    vue: 'Vue',
     'vue-router': 'VueRouter',
-    'vuex': 'Vuex',
-    'axios': 'axios'
+    vuex: 'Vuex',
+    axios: 'axios'
   },
   entry: {
     app: './src/main.js'
@@ -20,9 +20,10 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath:
+      process.env.NODE_ENV === 'production'
+        ? config.build.assetsPublicPath
+        : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -33,6 +34,7 @@ module.exports = {
       '/common': resolve('src/common'),
       '/assets': resolve('src/assets'),
       '/api': resolve('src/api'),
+      static: path.resolve(__dirname, '../static'),
       '/utils': resolve('src/utils')
     }
   },
@@ -51,7 +53,8 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
-      }, {
+      },
+      {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
       },
